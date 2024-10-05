@@ -80,7 +80,7 @@ async function handleBreedSelect(event) {
     const breedId = event.target.value;
 
     const response = await fetch(
-      `https://api.thecatapi.com/v1/images/search?breed_id=${breedId}&limit=3`,
+      `https://api.thecatapi.com/v1/images/search?breed_id=${breedId}&limit=5`,
       {
         headers: {
           "x-api-key": API_KEY,
