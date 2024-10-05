@@ -77,3 +77,16 @@ body {
     height: 17em;
   }
 }
+
+.carousel-inner {
+  max-width: 100%;
+  height: 400px; 
+  overflow: hidden;
+  position: relative;
+  background-color: #f89797;
+}
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
