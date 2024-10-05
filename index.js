@@ -107,11 +107,84 @@ async function initialLoad() {
 
 
 
+// async function handleBreedSelect(event) {
+//   try {
+//     const breedId = event.target.value;
+
+//     const response = await fetch(
+//       `https://api.thecatapi.com/v1/images/search?breed_id=${breedId}&limit=5`,
+//       {
+//         headers: {
+//           "x-api-key": API_KEY,
+//         },
+//       }
+//     );
+
+//     if (!response.ok) {
+//       throw new Error("Error images");
+//     }
+
+//     const catImages = await response.json();
+//     console.log("img recv:", catImages);
+
+//     const carouselInner = document.getElementById("carouselInner");
+//     const infoDump = document.getElementById("infoDump");
+
+//     if (carouselInner) {
+//       carouselInner.innerHTML = "";
+//     }
+
+//     if (infoDump) {
+//       infoDump.innerHTML = "";
+//     }
+
+//     catImages.forEach((catImage, index) => {
+//       const carouselItem = document.createElement("div");
+//       carouselItem.className = "carousel-item" + (index === 0 ? " active" : "");
+
+//       const imgElement = document.createElement("img");
+//       imgElement.src = catImage.url;
+//       imgElement.className = "d-block w-100";
+//       imgElement.alt = "Cat image";
+
+//       carouselItem.appendChild(imgElement);
+//       carouselInner.appendChild(carouselItem);
+//     });
+
+//     if (catImages.length > 0 && catImages[0].breeds.length > 0) {
+//       const breedInfo = catImages[0].breeds[0];
+//       const breedDetails = `
+//         <h2>${breedInfo.name}</h2>
+//         <p>${breedInfo.description}</p>
+//         <p><strong>Temperament:</strong> ${breedInfo.temperament}</p>
+//         <p><strong>Origin:</strong> ${breedInfo.origin}</p>
+//       `;
+//       infoDump.innerHTML = breedDetails;
+//     }
+
+//     const carouselElement = document.querySelector("#carouselExampleControls");
+//     if (carouselElement) {
+//       const existingCarousel = bootstrap.Carousel.getInstance(carouselElement);
+//       if (existingCarousel) {
+//         existingCarousel.dispose();
+//       }
+
+//       new bootstrap.Carousel(carouselElement, {
+//         interval: 2000,
+//         ride: "carousel",
+//       });
+//     }
+//   } catch (error) {
+//     console.error("Error retrieving breed information:", error);
+//   }
+// }
+
+
 async function handleBreedSelect(event) {
   try {
     const breedId = event.target.value;
 
-    const response = await fetch(
+    const response = await axios.get(
       `https://api.thecatapi.com/v1/images/search?breed_id=${breedId}&limit=5`,
       {
         headers: {
@@ -120,11 +193,7 @@ async function handleBreedSelect(event) {
       }
     );
 
-    if (!response.ok) {
-      throw new Error("Error images");
-    }
-
-    const catImages = await response.json();
+    const catImages = response.data; 
     console.log("img recv:", catImages);
 
     const carouselInner = document.getElementById("carouselInner");
@@ -178,9 +247,7 @@ async function handleBreedSelect(event) {
     console.error("Error retrieving breed information:", error);
   }
 }
-
 breedSelect.addEventListener("change", handleBreedSelect);
-
 initialLoad();
 
 
