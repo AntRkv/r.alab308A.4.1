@@ -83,7 +83,7 @@ body {
   height: 400px; 
   overflow: hidden;
   position: relative;
-  background-color: #f89797;
+ 
 }
 .carousel-item img {
   max-width: 100%;
