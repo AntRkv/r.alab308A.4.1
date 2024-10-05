@@ -20,23 +20,54 @@ const API_KEY = "live_4OJnOdzVbOwSg8P05fpEqrDIte4EVuwnYAgU5ct2ldvDrtLPspCqmHVwG6
 //  * This function should execute immediately.
 //  */
 
+// async function initialLoad() {
+//   try {
+//     const breedSelect = document.getElementById("breedSelect");
+
+//     const response = await fetch("https://api.thecatapi.com/v1/breeds", {
+//       headers: {
+//         "x-api-key": API_KEY,
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Error response");
+//     }
+
+//     const breeds = await response.json();
+//     console.log("Data recieved", breeds);
+
+//     breeds.forEach((breed) => {
+//       const option = document.createElement("option");
+//       option.value = breed.id;
+//       option.textContent = breed.name;
+//       breedSelect.appendChild(option);
+//     });
+
+//     if (breeds.length > 0) {
+//       handleBreedSelect({ target: { value: breeds[0].id } });
+//     }
+//   } catch (error) {
+//     console.error("Err req", error);
+//   }
+// }
+
+
 async function initialLoad() {
   try {
     const breedSelect = document.getElementById("breedSelect");
 
-    const response = await fetch("https://api.thecatapi.com/v1/breeds", {
+    
+    const response = await axios.get("https://api.thecatapi.com/v1/breeds", {
       headers: {
         "x-api-key": API_KEY,
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Error response");
-    }
+    const breeds = response.data; 
+    console.log("Data received", breeds);
 
-    const breeds = await response.json();
-    console.log("Data recieved", breeds);
-
+   
     breeds.forEach((breed) => {
       const option = document.createElement("option");
       option.value = breed.id;
@@ -44,11 +75,12 @@ async function initialLoad() {
       breedSelect.appendChild(option);
     });
 
+    
     if (breeds.length > 0) {
       handleBreedSelect({ target: { value: breeds[0].id } });
     }
   } catch (error) {
-    console.error("Err req", error);
+    console.error("Error during request", error);
   }
 }
 
